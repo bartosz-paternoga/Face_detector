@@ -1,0 +1,65 @@
+
+const express = require('express')
+const bodyParser = require('body-parser');
+const port = process.env.PORT || 3001;
+
+const app = express();
+app.use(express.static('client/build'));
+
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true}));
+
+
+const COS = require('ibm-cos-sdk');
+const config = {
+    endpoint: 's3-api.us-geo.objectstorage.softlayer.net',
+    apiKeyId: "ULGPDqZESInu0b4f8xguoEmiHXrB3-g8mFPZUT94sW77",
+    serviceInstanceId: "crn:v1:bluemix:public:cloud-object-storage:global:a/49211e87eeb8449c85aab25aac369a1e:58f561b6-e657-42fc-8bc3-0900174963b5::",
+};
+const cos = new COS.S3(config);
+
+let postBody;
+let bucket;
+
+const mime = require('mime-types');
+
+upload = async (b,bucket, key) => {
+  console.log("HIT")
+  const body = await Buffer.from(b, 'base64')
+
+  const ContentType = 'image/jpeg'
+  // const ContentType =  'application/octet-stream'
+  const object = {
+    Bucket: bucket,
+    Key: key,
+    Body: body,
+    ACL: 'public-read',
+    ContentType
+  }
+
+ const c = await cos.upload(object).promise();
+ 
+}
+
+app.post('/', async (request, response) => {
+  postBody = await request.body;
+
+  const x = JSON.stringify(postBody);
+  const base = x.substring(25, x.length-5);
+  const replaced = base.replace(/ /g, '+') + '='
+
+  bucket = "bartek"
+  const timestamp = Date.now();
+  const name = bucket +"-" + timestamp.toString();
+
+  const up = await upload(replaced,bucket, name);
+
+  response.send("OKEY");
+
+});
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
+
+app.listen(port, () => console.log(`Server listening on port ${port}`)) 
