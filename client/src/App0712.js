@@ -34,7 +34,6 @@ class App extends Component {
       
         let descriptors = [];
         let dataURL;
-        let data;
 
         async function onPlay(imgEl) {
 
@@ -124,7 +123,7 @@ class App extends Component {
             img.style.visibility = "hidden";
             img2.style.visibility = "hidden"
 
-        if (euc>0.4) {
+            if (euc>0.4) {
     
             if (dataURL !== undefined){
                       
@@ -143,28 +142,8 @@ class App extends Component {
                     // alert(text);
     
                 });
-
-
-
-                async function gatData() {
-                  try {
-                    const response = await axios.get('/data');
-                    data = response;
-                    console.log("MONGODB:",response.data);
-                  } catch (error) {
-                    console.error(error);
-                  }
-                }
-
-
-
-                const gg = await gatData()
-
-
-
-
-
             }
+
           }
 
 
