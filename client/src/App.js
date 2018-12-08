@@ -1,203 +1,48 @@
 import React, { Component } from 'react';
-import Comp from './component1';
-import Webcam from './webcam';
-import Loader from './loader';
 import './App.css';
-import * as faceapi from 'face-api.js';
-import axios from 'axios';
+
+import Home from './HomeComponent';
+import Cam from './CamComponent';
+import Data from './DataComponent';
+import Admin from './AdminComponent';
+
+
+// import route Components here
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from 'react-router-dom'
 
 
 class App extends Component {
+  render() {
+    return (
+      <Router>
+     
+          <div >
+            <ul >
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/cam">Cam</Link></li>
+              <li><Link to="/data">Data</Link></li>
+              <li><Link to="/admin">Admin</Link></li>
+            </ul>
+   
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/data" component={Data} />
+            <Route path="/cam" component={Cam} />
+            <Route path="/admin" component={Admin} />
+            <Route exact path="*" component={Home} />
+          </Switch>
 
-    componentWillMount() {
-     this.main();
-     console.log("componentWillMount");
-    }
-
-
-    main = async () => {
-
-        Webcam();
-
-          const MODEL_URL = '/model';
-          await faceapi.loadFaceDetectionModel(MODEL_URL)
-          await faceapi.loadFaceRecognitionModel(MODEL_URL)
-          await faceapi.loadFaceLandmarkModel(MODEL_URL)
-          await faceapi.loadMtcnnModel(MODEL_URL)
-          console.log("MODEL LOADED");
-          
-          const modelLoad = "LOADED";
-          Loader(modelLoad);
-                 
-
-        const imgEl = document.getElementById('video');
-      
-        let descriptors = [];
-        let dataURL;
-        let data;
-
-        async function onPlay(imgEl) {
-
-            const { width, height } = faceapi.getMediaDimensions(imgEl);
-
-            const canvas =  document.getElementById('overlay');
-            canvas.width = width;
-            canvas.height = height;
-
-
-            const canvas2 =  document.getElementById('canvas');
-            canvas2.width = width;
-            canvas2.height = height;
-
-            const video = document.getElementById('video');   
-            let img = document.getElementById('1');
-            img.style.visibility = "hidden";
-            
-
-            function draw( video, canvas2, image ){
-              const context = canvas2.getContext('2d');
-              context.drawImage( video, 0, 0, canvas2.width, canvas2.height);
-
-              dataURL = canvas2.toDataURL('image/jpeg', 1.0);         
-              
-              image.src= dataURL;
-              // img1.src= "";
-              canvas2.style.display='none'
-              }
-                     
-            const ts = Date.now();
-
-            const mtcnnForwardParams = {
-              // limiting the search space to larger faces for webcam detection
-              minFaceSize: 100
-            };
-
-            const fullFaceDescriptions = (await faceapi.allFacesMtcnn(imgEl, mtcnnForwardParams))
-            .map(fd => fd.forSize(width, height));
-            console.log("fullFaceDescriptions",fullFaceDescriptions);
-
-            fullFaceDescriptions.forEach((fd) => {
-            faceapi.drawDetection(canvas, fd.detection, { withScore: true, color: 'blue' })
-            });
-
-            // fullFaceDescriptions.forEach((fd) => {
-            // faceapi.drawLandmarks(canvas, fd.landmarks, { drawLines: true, color: 'red',lineWidth: 4 })
-            // });
-
-            console.log("Detection done in: ", (Date.now() - ts));
-
-            draw( video, canvas2, img);         
-            
-            let descriptor1;
-            let fullFaceDescription1;    
-            let euc;
-                    
-            if (img !== undefined){
-              fullFaceDescription1 = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-              if (fullFaceDescription1 !== undefined){
-                  descriptor1 = fullFaceDescription1.descriptor
-                  descriptors.push(descriptor1)
-
-                  if (descriptors.length>2) {
-                    descriptors.shift();
-                }
-
-                  if (descriptors.length>1) {         
-                      euc = faceapi.euclideanDistance(descriptors[0],descriptors[1])
-                      console.log("EUC DIST:", euc) }
-                  
-
-                }
-            } else { console.log("no face")}
-
-            console.log("array of desriptors: ", descriptors)
-
-    
-            let img2 = document.getElementById('2');
-            img2.style.visibility = "hidden";
-
-            if (euc>0.4) {
-               draw( video, canvas2, img2);
-              //  console.log("dataURL:",dataURL)
-            } else {img2.src=""}
-
-            img.style.visibility = "hidden";
-            img2.style.visibility = "hidden"
-
-        if (euc>0.4) {
-    
-            if (dataURL !== undefined){
-                      
-            axios.post('/', dataURL
-            )
-              .then((result) => {
-    
-                    let z = result.data;
-    
-                    console.log("RE-post: ", z);
-                    console.log("POSTED!!!");
-    
- 
-                    // const text = "It's a " + z
-    
-                    // alert(text);
-    
-                });
-
-
-
-                async function gatData() {
-                  try {
-                    const response = await axios.get('/data');
-                    data = response;
-                    console.log("MONGODB:",response.data);
-                  } catch (error) {
-                    console.error(error);
-                  }
-                }
-
-
-
-                const gg = await gatData()
-
-
-
-
-
-            }
-          }
-
-
- 
-        }  //end onplay
-
-
-        setInterval(
-          () =>   onPlay(imgEl),
-          4000
-        );
+          </div>
         
-       
-
-
-
-
-        
-
-      }
-
-
-    render() {
-        
-        return (
-                 <Comp
-                                    
-                 />
-      
-       );
-    }
-
-};
-
+      </Router>
+    );
+  }
+}
 
 export default App;

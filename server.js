@@ -3,6 +3,9 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const moment = require('moment');
+moment().format();
+
 const port = process.env.PORT || 3001;
 
 mongoose.Promise = global.Promise;
@@ -27,8 +30,8 @@ const cos = new COS.S3(config);
 let postBody;
 let bucket;
 let timestamp;
+let time;
 let name;
-let link = "http://bartek.s3-api.us-geo.objectstorage.softlayer.net/" + `${name}` ;
 
 const mime = require('mime-types');
 
@@ -50,9 +53,9 @@ upload = async (b,bucket, key) => {
  const c = await cos.upload(object).promise();
 
  const mong = new Mong ({
-        bucket: bucket,
-        time: timestamp,
-        link: "http://bartek.s3-api.us-geo.objectstorage.softlayer.net/" + name
+        Bucket: bucket,
+        Time: time,
+        Link: `http://${bucket}.s3-api.us-geo.objectstorage.softlayer.net/${name}`
     });
 
   mong.save((err,doc)=>{
@@ -72,8 +75,10 @@ app.post('/', async (request, response) => {
   const replaced = base.replace(/ /g, '+') + '='
 
   bucket = "bartek"
-  timestamp = Date.now();
-  name = bucket +"-" + timestamp.toString();
+ 
+  timestamp =  Date.now();
+  time = moment.utc(Date.now()).local();
+  name = timestamp.toString();
 
   const up = await upload(replaced,bucket, name);
 

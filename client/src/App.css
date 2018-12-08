@@ -128,3 +128,59 @@ margin-left: 175px;
             transform: scale3D(0, 0, 1);
   } 
 }
+
+
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color:darkred;
+}
+
+#btn {
+    margin-left: 40px
+}
+
+#btn_data {
+  margin-left: 40px
+}
+
+
+#predictions {
+  margin-left: 40px
+}
+
+th, td, p, input {
+  font:14px arial;
+}
+table, th, td 
+{
+  margin-left: 40px;
+  border: solid 1px #DDD;
+  border-collapse: collapse;
+  padding: 2px 3px;
+  text-align: left;
+}
+th {
+  font-weight:bold;
+}

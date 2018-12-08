@@ -7,17 +7,15 @@ import * as faceapi from 'face-api.js';
 import axios from 'axios';
 
 
-class App extends Component {
+class faceDetector extends Component {
 
-    componentWillMount() {
-     this.main();
-     console.log("componentWillMount");
+    componentDidMount() {
+      
+    console.log("componentDidMount");
     }
 
 
-    main = async () => {
-
-        Webcam();
+    main = async () => {    
 
           const MODEL_URL = '/model';
           await faceapi.loadFaceDetectionModel(MODEL_URL)
@@ -25,7 +23,7 @@ class App extends Component {
           await faceapi.loadFaceLandmarkModel(MODEL_URL)
           await faceapi.loadMtcnnModel(MODEL_URL)
           console.log("MODEL LOADED");
-          
+          Webcam();
           const modelLoad = "LOADED";
           Loader(modelLoad);
                  
@@ -40,6 +38,9 @@ class App extends Component {
             const { width, height } = faceapi.getMediaDimensions(imgEl);
 
             const canvas =  document.getElementById('overlay');
+
+            if (canvas === null) {window.location.reload()}
+
             canvas.width = width;
             canvas.height = height;
 
@@ -79,9 +80,9 @@ class App extends Component {
             faceapi.drawDetection(canvas, fd.detection, { withScore: true, color: 'blue' })
             });
 
-            // fullFaceDescriptions.forEach((fd) => {
-            // faceapi.drawLandmarks(canvas, fd.landmarks, { drawLines: true, color: 'red',lineWidth: 4 })
-            // });
+            fullFaceDescriptions.forEach((fd) => {
+            faceapi.drawLandmarks(canvas, fd.landmarks, { drawLines: false, color: 'red',lineWidth: 4 })
+            });
 
             console.log("Detection done in: ", (Date.now() - ts));
 
@@ -115,6 +116,9 @@ class App extends Component {
             let img2 = document.getElementById('2');
             img2.style.visibility = "hidden";
 
+            let pred = document.getElementById("predictions");
+            pred.innerHTML = `Face detected with euclidean distance to the last one seen @${Math.round(euc * 100) / 100}`;
+
             if (euc>0.4) {
                draw( video, canvas2, img2);
               //  console.log("dataURL:",dataURL)
@@ -125,29 +129,22 @@ class App extends Component {
 
             if (euc>0.4) {
     
-            if (dataURL !== undefined){
-                      
-            axios.post('/', dataURL
-            )
-              .then((result) => {
-    
-                    let z = result.data;
-    
-                    console.log("RE-post: ", z);
-                    console.log("POSTED!!!");
-    
- 
-                    // const text = "It's a " + z
-    
-                    // alert(text);
-    
-                });
+              if (dataURL !== undefined){               
+                               
+                axios.post('/', dataURL
+                )
+                  .then((result) => {
+        
+                        let z = result.data;
+        
+                        console.log("RE-post: ", z);
+                        console.log("POSTED!!!");
+                
+                    });
             }
 
           }
 
-
- 
         }  //end onplay
 
 
@@ -155,28 +152,25 @@ class App extends Component {
           () =>   onPlay(imgEl),
           4000
         );
-        
-       
-
-
-
-
-        
-
+            
       }
+
+      reset = () => {
+        window.location.reload();
+       }
 
 
     render() {
         
         return (
                  <Comp
-                                    
+                 main = {this.main}
+                 reset = {this.reset}              
                  />
       
        );
     }
-
 };
 
 
-export default App;
+export default faceDetector;

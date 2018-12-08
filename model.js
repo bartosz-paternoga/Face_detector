@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 
  
 const userSchema = mongoose.Schema({
-    bucket:{
+    Bucket:{
         type:String,
 
     },
-    time:{
+    Time:{
         type:String,
 
     },
-    link:{
+    Link:{
         type:String
     }
 })
