@@ -15,17 +15,15 @@ class Data extends Component {
     main = async () => {
    
         let pred = document.getElementById("predictions");
-        let data;
 
         const getData = async () => {
             try {
             const response = await axios.get('/data');
-            data = response.data;
-            this.setState({a:data});
-            console.log("MONGODB:", JSON.stringify(response.data));
+            this.setState({a:response.data});
+            //console.log("MONGODB:", JSON.stringify(response.data));
 
             } catch (error) {
-           // console.error(error);
+            console.error(error);
             }
       }
 
