@@ -9,16 +9,16 @@ class Data extends Component {
        }
 
     state = {
-        jdata: ""
+        a: ""
     }
 
     main = async () => {
    
         let pred = document.getElementById("predictions");
-
+        
         const getData = async () => {
             try {
-            const response = await axios.get('/data');
+            const response = await axios.get('/data');           
             this.setState({a:response.data});
             //console.log("MONGODB:", JSON.stringify(response.data));
 
