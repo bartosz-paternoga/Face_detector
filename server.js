@@ -91,8 +91,8 @@ app.post('/', async (request, response) => {
 app.get('/data', function(req, res) {
   Mong.find({}, function(err, foundData) { //empty query for all data
       if(err) {
-          console.log(err);
-          return res.status(500).send();
+         // console.log(err);
+         // return res.status(500).send();
       } else {
           console.log("FOUNDDATA",foundData)
           res.status(200).send(foundData);

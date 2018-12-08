@@ -25,7 +25,7 @@ class Data extends Component {
             console.log("MONGODB:", JSON.stringify(response.data));
 
             } catch (error) {
-            console.error(error);
+           // console.error(error);
             }
       }
 
