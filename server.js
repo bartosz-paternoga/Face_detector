@@ -88,7 +88,7 @@ app.post('/', async (request, response) => {
 });
 
 
-app.get('/data', function(req, res) {
+app.get('/mydata', function(req, res) {
   Mong.find({}, function(err, foundData) { //empty query for all data
       if(err) {
          console.log(err);

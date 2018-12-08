@@ -18,7 +18,7 @@ class Data extends Component {
         
         const getData = async () => {
             try {
-            const response = await axios.get('/data');           
+            const response = await axios.get('/mydata');           
             this.setState({a:response.data});
             //console.log("MONGODB:", JSON.stringify(response.data));
 
