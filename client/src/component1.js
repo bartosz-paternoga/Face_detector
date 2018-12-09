@@ -15,6 +15,10 @@ const Comp = (props) => (
 		<br/><button id="btn" onClick={props.main}>Start prediction</button>
 		<button  id="btn" onClick= {props.reset}> Stop prediction </button> 
 		<pre id="predictions"></pre>
+		<div id="container" >
+            <video className="img" id="video"  width="640" height="480" controls autoPlay ></video>
+            <canvas id="overlay" />
+        </div>
 		<br/>
 		<div id="loading-message">
 	       <p>Face-api.js model is loading. This will take a few moments ...</p>
@@ -33,10 +37,7 @@ const Comp = (props) => (
 		  <div className="sk-cube sk-cube9"></div>
 		</div>
 
-        <div id="container" >
-            <video className="img" id="video"  width="640" height="480" controls autoPlay ></video>
-            <canvas id="overlay" />
-        </div>
+
 
 		
 
