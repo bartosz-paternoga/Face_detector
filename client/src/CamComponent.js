@@ -17,10 +17,14 @@ class faceDetector extends Component {
     const MODEL_URL = '/model';
 
     const a = async () => {
-      const a1 = await faceapi.loadFaceDetectionModel(MODEL_URL)
-      const a2 = await faceapi.loadFaceRecognitionModel(MODEL_URL)
-      const a3 = await faceapi.loadFaceLandmarkModel(MODEL_URL)
-      const a4 = await faceapi.loadMtcnnModel(MODEL_URL)
+      const a1 = await faceapi.loadFaceDetectionModel(MODEL_URL);
+      const a2 = await faceapi.loadFaceRecognitionModel(MODEL_URL);
+      const a3 = await faceapi.loadFaceLandmarkModel(MODEL_URL);
+      const a4 = await faceapi.loadMtcnnModel(MODEL_URL);
+
+      console.log("MODEL LOADED");
+      const modelLoad = "LOADED";
+      Loader(modelLoad);
      }
 
     const l = async () => {
@@ -28,10 +32,6 @@ class faceDetector extends Component {
     }
 
     l();
-
-    console.log("MODEL LOADED");
-    const modelLoad = "LOADED";
-    Loader(modelLoad);
 
     }
 
