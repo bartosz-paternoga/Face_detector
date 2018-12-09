@@ -20,7 +20,7 @@ class Data extends Component {
             try {
             const response = await axios.get('/api/data');           
             this.setState({a:response.data});
-            //console.log("MONGODB:", JSON.stringify(response.data));
+            console.log("MONGODB:", JSON.stringify(response.data));
 
             } catch (error) {
             console.error(error);
@@ -82,8 +82,9 @@ class Data extends Component {
     render() {
         return (
         <div>
+            
+           <br/> <input id = "btn_data" type="button" onClick={this.CreateTableFromJSON} value="Show data" /><br/>
             <pre id="predictions"></pre>
-            <input id = "btn_data" type="button" onClick={this.CreateTableFromJSON} value="Show data" /><br/>
             <p id="showData"></p>
         </div>
         )
