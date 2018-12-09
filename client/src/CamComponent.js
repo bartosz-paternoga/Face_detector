@@ -14,6 +14,20 @@ class faceDetector extends Component {
       
     console.log("componentDidMount");
 
+    const MODEL_URL = '/model';
+
+    const a = async () => {
+    const a1 = await faceapi.loadFaceDetectionModel(MODEL_URL)
+    const a2 = await faceapi.loadFaceRecognitionModel(MODEL_URL)
+    const a3 = await faceapi.loadFaceLandmarkModel(MODEL_URL)
+    const a4 = await faceapi.loadMtcnnModel(MODEL_URL)
+    }
+     a();
+    console.log("MODEL LOADED");
+    const modelLoad = "LOADED";
+    Loader(modelLoad);
+
+
     }
 
 
@@ -26,8 +40,8 @@ class faceDetector extends Component {
           await faceapi.loadMtcnnModel(MODEL_URL)
           console.log("MODEL LOADED");
           Webcam();
-          const modelLoad = "LOADED";
-          Loader(modelLoad);
+          // const modelLoad = "LOADED";
+          // Loader(modelLoad);
                  
 
         const imgEl = document.getElementById('video');

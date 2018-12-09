@@ -63,14 +63,14 @@ margin-left: 175px;
 
 
 #loading-message {
-  text-align: center;
+  margin-left: 10px ;
 }
 
 
 .sk-cube-grid {
   width: 100px;
   height: 100px;
-  margin: 10px auto;
+  margin-left: 160px ;
 }
 
 .sk-cube-grid .sk-cube {
