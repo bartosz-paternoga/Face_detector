@@ -22,7 +22,13 @@ class faceDetector extends Component {
       const a3 = await faceapi.loadFaceLandmarkModel(MODEL_URL)
       const a4 = await faceapi.loadMtcnnModel(MODEL_URL)
      }
-    const l = await a();
+
+    const l = async () => {
+      await a();
+    }
+
+    l();
+
     console.log("MODEL LOADED");
     const modelLoad = "LOADED";
     Loader(modelLoad);
