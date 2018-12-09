@@ -6,6 +6,10 @@ const userSchema = mongoose.Schema({
         type:String,
 
     },
+    Date:{
+        type:String,
+
+    },
     Time:{
         type:String,
 

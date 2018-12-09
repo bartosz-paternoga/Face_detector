@@ -150,6 +150,7 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font: Courier
 }
 
 /* Change the link color to #111 (black) on hover */
@@ -162,7 +163,9 @@ li a:hover {
 }
 
 #btn_data {
-  margin-left: 40px
+  margin-left: 40px;
+  display: inline;
+  font:13px Courier;
 }
 
 
@@ -170,8 +173,28 @@ li a:hover {
   margin-left: 40px
 }
 
+ #main {
+  margin-left: 40px;
+  display: inline;
+  font:14px Courier;
+ 
+}
+
+  #start, #end, #lbl, #show {
+  margin-left: 10px;
+  display: inline;
+  font:13px Courier;
+ 
+}
+ #show {
+  margin-left: 40px;
+  display: inline;
+ 
+}
+
+
 th, td, p, input {
-  font:14px arial;
+  font:13px Courier;
 }
 table, th, td 
 {
@@ -183,4 +206,8 @@ table, th, td
 }
 th {
   font-weight:bold;
+}
+
+tr:nth-child(odd) {
+  background-color: #f2f2f2
 }

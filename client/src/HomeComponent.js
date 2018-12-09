@@ -2,8 +2,8 @@ import React from 'react';
 
 const Home = () => {
     return (
-        <div className="jumbotron">
-            <h1 className="display-3">Face Detector</h1>
+        <div >
+           <br/> <pre id = "main">Face Detector</pre>
         </div>
     );
 }

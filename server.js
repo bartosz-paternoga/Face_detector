@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-
+const mime = require('mime-types');
 const moment = require('moment');
 moment().format();
 
@@ -14,11 +14,11 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/FACER');
 
 const {Mong} = require('./model');
 
+
 const app = express();
 app.use(express.static('client/build'));
 
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true}));
-
 
 const COS = require('ibm-cos-sdk');
 const config = {
@@ -28,16 +28,21 @@ const config = {
 };
 const cos = new COS.S3(config);
 
+
 let postBody;
 let bucket;
 let timestamp;
-let time;
 let name;
-
-const mime = require('mime-types');
+let time;
+let timeD;
+let timeH;
 
 
 upload = async (b,bucket, key) => {
+
+  time = moment.utc(Date.now()).local();
+  timeD = moment().format("DD.MM.YYYY");
+  timeH = moment().format("h:mm:ss a");
   console.log("HIT")
   const body = await Buffer.from(b, 'base64')
 
@@ -51,17 +56,19 @@ upload = async (b,bucket, key) => {
     ContentType
   }
 
+  
  const c = await cos.upload(object).promise();
 
  const mong = new Mong ({
         Bucket: bucket,
-        Time: time,
+        Date: timeD,
+        Time: timeH,
         Link: `http://${bucket}.s3-api.us-geo.objectstorage.softlayer.net/${name}`
     });
 
   mong.save((err,doc)=>{
     if(err) console.error(err)
-    console.log(doc)
+    // console.log(doc)
     // mongoose.disconnect()
     })
  
@@ -75,11 +82,10 @@ app.post('/', async (request, response) => {
   const base = x.substring(25, x.length-5);
   const replaced = base.replace(/ /g, '+') + '='
 
-  bucket = "bartek"
- 
   timestamp =  Date.now();
-  time = moment.utc(Date.now()).local();
   name = timestamp.toString();
+
+  bucket = "bartek"
 
   const up = await upload(replaced,bucket, name);
 
@@ -94,13 +100,11 @@ app.get('/api/data', function(req, res) {
          console.log(err);
          return res.status(500).send();
       } else {
-          console.log("FOUNDDATA",foundData)
+          // console.log("FOUNDDATA",foundData)
           res.status(200).send(foundData);
       }
   });
 });
-
-
 
 
 
