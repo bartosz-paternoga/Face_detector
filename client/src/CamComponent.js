@@ -34,6 +34,7 @@ class faceDetector extends Component {
       
         let descriptors = [];
         let dataURL;
+        let firstFace;
 
         async function onPlay(imgEl) {
 
@@ -103,7 +104,7 @@ class faceDetector extends Component {
                   if (descriptors.length>2) {
                     descriptors.shift();
                 }
-
+ 
                   if (descriptors.length>1) {         
                       euc = faceapi.euclideanDistance(descriptors[0],descriptors[1])
                       console.log("EUC DIST:", euc) }
@@ -121,7 +122,11 @@ class faceDetector extends Component {
             let pred = document.getElementById("predictions");
             pred.innerHTML = `Face detected with euclidean distance to the last one seen @${Math.round(euc * 100) / 100}`;
 
-            if (euc>0.4) {
+            if(descriptors.length===1) {
+              firstFace = 1
+            }
+
+            if (euc>0.4 || firstFace ===1) {
                draw( video, canvas2, img2);
               //  console.log("dataURL:",dataURL)
             } else {img2.src=""}
@@ -129,8 +134,8 @@ class faceDetector extends Component {
             img.style.visibility = "hidden";
             img2.style.visibility = "hidden"
 
-            if (euc>0.4) {
-    
+            if (euc>0.4 || firstFace ===1) {
+              firstFace = 0;
               if (dataURL !== undefined){               
                                
                 axios.post('/', dataURL
