@@ -5,6 +5,7 @@ import Loader from './loader';
 import './App.css';
 import * as faceapi from 'face-api.js';
 import axios from 'axios';
+import StopCam from './StopWebcam';
 
 
 class faceDetector extends Component {
@@ -12,6 +13,7 @@ class faceDetector extends Component {
     componentDidMount() {
       
     console.log("componentDidMount");
+
     }
 
 
@@ -39,7 +41,7 @@ class faceDetector extends Component {
 
             const canvas =  document.getElementById('overlay');
 
-            if (canvas === null) {window.location.reload()}
+            if (canvas === null) { window.location.reload()}
 
             canvas.width = width;
             canvas.height = height;
@@ -143,9 +145,9 @@ class faceDetector extends Component {
                     });
             }
 
-          }
-
-        }  //end onplay
+         }
+        
+     }  //end onplay
 
 
         setInterval(
@@ -156,8 +158,8 @@ class faceDetector extends Component {
       }
 
       reset = () => {
-        window.location.reload();
-       }
+        StopCam();
+      }
 
 
     render() {
