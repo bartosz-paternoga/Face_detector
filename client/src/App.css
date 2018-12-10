@@ -39,7 +39,7 @@ margin-left: 175px;
 #file-container1{
 
   display: none;
-
+ 
 }
 
 #text{
@@ -160,20 +160,45 @@ li a:hover {
   background-color:darkred;
 }
 
+#container {
+  margin-top: 20px;
+}
+
 #btn1, #btn2 {
-    margin-left: 40px;
+    margin-left: 20px;
     display: none;
+
+    background-color: darkgray; 
+    border-radius: 10px;
+    color: white;
+    padding: 6px 15px;
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 12px;
+    cursor:pointer;
 }
 
 #btn_data {
   margin-left: 40px;
   display: inline;
   font:13px Courier;
+
+  background-color: darkgray; 
+  border-radius: 10px;
+  color: white;
+  padding: 6px 15px;
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 12px;
+  cursor:pointer;
 }
 
 
 #predictions {
-  margin-left: 40px
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
  #main {

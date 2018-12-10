@@ -31,8 +31,11 @@ const Comp = (props) => (
 		  <div className="sk-cube sk-cube9"></div>
 		</div>
 
-		<button id="btn1" onClick={props.main}>Start prediction</button>
-		<button  id="btn2" onClick= {props.reset}> Stop prediction </button> 
+		{/* <button id="btn1" onClick={props.main}>Start prediction</button> */}
+		{/* <button  id="btn2" onClick= {props.reset}> Stop prediction </button>  */}
+		<p id = "btn1" type="submit"  onClick = {props.main} >Start prediction</p>
+		<p id = "btn2" type="submit"  onClick = {props.reset} >Stop prediction</p>
+		
 
 		<pre id="predictions"></pre>
 

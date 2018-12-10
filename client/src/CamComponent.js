@@ -183,6 +183,9 @@ class faceDetector extends Component {
 
       reset = () => {
         StopCam();
+        let pred = document.getElementById("predictions");
+        pred.innerHTML = '';
+
       }
 
 

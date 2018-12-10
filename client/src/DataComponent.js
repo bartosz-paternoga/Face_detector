@@ -112,7 +112,8 @@ class Data extends Component {
     render() {
         return (
         <div>
-           <br/> <input id = "btn_data" type="button" onClick={this.CreateTableFromJSON} value="Show data" />
+          <br/> <p id = "btn_data" type="submit"  onClick={this.CreateTableFromJSON} >Show data</p>
+           {/* <br/> <input id = "btn_data" type="button" onClick={this.CreateTableFromJSON} value="Show data" /> */}
            
            {/* <label id ="lbl" htmlFor="start">Start date:</label>
            <input type="date" id="start" name="start" />
