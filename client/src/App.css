@@ -50,7 +50,7 @@ margin-left: 175px;
 
 .img { 
   position:absolute;
-    display: none;
+  display: none;
 }
 
 
@@ -63,15 +63,17 @@ margin-left: 175px;
 
 
 #loading-message {
-  margin-left: 10px ;
-}
+  margin-left: 20px ;
+  margin-top: 20px
+  }
 
 
 .sk-cube-grid {
   width: 100px;
   height: 100px;
-  margin-left: 160px ;
-}
+  margin-left: 200px ;
+  margin-top: 50px
+  }
 
 .sk-cube-grid .sk-cube {
   width: 33%;
@@ -158,8 +160,9 @@ li a:hover {
   background-color:darkred;
 }
 
-#btn {
-    margin-left: 40px
+#btn1, #btn2 {
+    margin-left: 40px;
+    display: none;
 }
 
 #btn_data {

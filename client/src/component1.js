@@ -12,19 +12,13 @@ const Comp = (props) => (
 	      </header>     
 	    </div> <br/> */}
 		
-		<br/><button id="btn" onClick={props.main}>Start prediction</button>
-		<button  id="btn" onClick= {props.reset}> Stop prediction </button> 
-		<pre id="predictions"></pre>
-		<div id="container" >
-            <video className="img" id="video"  width="640" height="480" controls autoPlay ></video>
-            <canvas id="overlay" />
-        </div>
+
 		<br/>
 		<div id="loading-message">
 	       <p>Face-api.js model is loading. This will take a few moments ...</p>
 	       {/* <p>All good things come for those who wait</p> */}
 	    </div>
-	    <br/>
+	    
 		<div className="sk-cube-grid" id="sk-cube-grid">
 		  <div className="sk-cube sk-cube1"></div>
 		  <div className="sk-cube sk-cube2"></div>
@@ -37,9 +31,15 @@ const Comp = (props) => (
 		  <div className="sk-cube sk-cube9"></div>
 		</div>
 
+		<button id="btn1" onClick={props.main}>Start prediction</button>
+		<button  id="btn2" onClick= {props.reset}> Stop prediction </button> 
 
+		<pre id="predictions"></pre>
 
-		
+		<div id="container" >
+            <video className="img" id="video"  width="640" height="480" controls autoPlay ></video>
+            <canvas id="overlay" />
+        </div>	
 
 		<canvas id="canvas" />
          <img  id = "1" src="" alt="" ></img>
